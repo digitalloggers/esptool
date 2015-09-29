@@ -474,7 +474,7 @@ if __name__ == '__main__':
             choices = ['qio', 'qout', 'dio', 'dout'], default = 'qio')
     parser_write_flash.add_argument('--flash_size', '-fs', help = 'SPI Flash size in Mbit',
             choices = ['4m', '2m', '8m', '16m', '32m', '16m-c1', '32m-c1', '32m-c2'], default = '4m')
-    parser_write_flash.add_argument('--verbatim', '-fv',  help = 'Write the binary files as they are without changing embedded flash configuration',
+    parser_write_flash.add_argument('--flash_verbatim', '-fv',  help = 'Write the binary files as they are without changing embedded flash configuration',
             action="store_true", default=False)
 
     parser_run = subparsers.add_parser(
@@ -594,7 +594,7 @@ if __name__ == '__main__':
                 sys.stdout.flush()
                 block = image[0:esp.ESP_FLASH_BLOCK]
                 # Fix sflash config data
-                if not args.verbatim and address == 0 and seq == 0 and block[0] == '\xe9':
+                if not args.flash_verbatim and address == 0 and seq == 0 and block[0] == '\xe9':
                     block = block[0:2] + flash_info + block[4:]
                 # Pad the last block
                 block = block + '\xff' * (esp.ESP_FLASH_BLOCK-len(block))
