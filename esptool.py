@@ -164,6 +164,7 @@ class ESPROM:
             self._port.setRTS(False)
             time.sleep(0.05)
             self._port.setDTR(False)
+            time.sleep(3)
 
             # worst-case latency timer should be 255ms (probably <20ms)
             self._port.timeout = 0.3
